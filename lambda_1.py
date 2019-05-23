@@ -54,7 +54,7 @@ class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text="Lambda 1.0", fg="#000c33", font=("Helvetica", 12, "bold"))
+        label = tk.Label(self, text="Lambda 1.2 alpha", fg="#000c33", font=("Helvetica", 12, "bold"))
         label.pack(padx=10, pady=10)
 
         # c = tk.Canvas(self, width=250, height=200)

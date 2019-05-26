@@ -54,8 +54,9 @@ class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text="Lambda 1.2 alpha", fg="#000c33", font=("Helvetica", 12, "bold"))
-        label.pack(padx=10, pady=10)
+        label = tk.Label(self, text="Lambda 1.2 alpha", fg="#000c33", font=("Helvetica", 14, "bold"))
+        #label.pack(padx=10, pady=10)
+        label.grid(row=1, column=1, columnspan=3, sticky='we', pady=34)
 
         # c = tk.Canvas(self, width=250, height=200)
         # c.pack()
@@ -67,26 +68,26 @@ class StartPage(tk.Frame):
         s = ttk.Style()
         s.configure('TButton', background='pink', foreground='red')
 
-        canvas = tk.Canvas(self, height=200, bg='black')
-        canvas.pack(padx=4, pady=10)
+        button_1 = tk.Button(self, width=24, height=2, font=("Helvetica", 9, "bold"), text="QUAD. FUN.",
+        command=lambda: controller.show_frame(2))
+        #button_1.config(fg="#000c33",  highlightbackground="#001866")
+        button_1.grid(row=6, column=1, padx=21, pady=1)
+
+        button_2 = tk.Button(self, width=24, height=2, font=("Helvetica", 9, "bold"), text="QUIT",
+        command=lambda: sys.exit())
+        #self.btn_img = tk.PhotoImage(file="res/pic_1.png")
+        #set width to grid :
+        #button_2.config(width="164", height="42")
+        button_2.grid(row=7, column=1, padx=21, pady=1)
+
+        canvas = tk.Canvas(self, height=360, width=600, bg='black')
+        #canvas.pack(padx=4, pady=10)
+        canvas.grid(row=2, column=2, columnspan=2, rowspan=24, padx=21, pady=2, sticky='we')
 
         self.photo = tk.PhotoImage(file="res/pic_1.png")
-        canvas.create_image(20, 10, image=self.photo, anchor='center')
+        canvas.create_image(301, 200, image=self.photo, anchor='center')
 
-        button_1 = tk.Button(self, width=20, height=2, font=("Helvetica", 10, "bold"), text="Quadratic function",
-        command=lambda: controller.show_frame(2))
-        button_1.config(fg="#000c33",  highlightbackground="#00124d" )
-        button_1.pack(padx=10, pady=2)
-
-        button_2 = tk.Button(self, width=20, height=2, font=("Helvetica", 10), text="Quit",
-        command=lambda: sys.exit())
-        # self.btn_img = tk.PhotoImage(file="res/pic_1.png")
-        # button_2.config(image =self.btn_img, width="164", height="42")
-        button_2.pack(padx=10, pady=2)
-
-
-
-        button_3 = ttk.Button(self, style='TButton', text='Button')
+        #button_3 = ttk.Button(self, style='TButton', text='Button')
         #button_3.pack()
 
 
@@ -95,13 +96,26 @@ class QFunction(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-        label = tk.Label(self, text="Page One", font=("Fira Sans Condensed Medium", 14))
-        label.grid(column=0, columnspan=3, sticky='ew', pady=5)
+        label = tk.Label(self, fg="#000c33", text="Quadratic function - Lambda", font=("Helvetica", 14, "bold"))
+        label.grid(row=1, column=1, columnspan=5, sticky='we', pady=34)
 
-        form = tk.Frame(self, highlightbackground="grey",  highlightthickness=1, bd= 0)
-        form.grid(row=1, column=0, columnspan=2, sticky='w', padx=5)
+        back_but= tk.Button(self, width=24, height=2, font=("Helvetica", 9, "bold"), text="BACK",
+        command=lambda: controller.show_frame(1))
+        back_but.grid(row=7, column=1, rowspan=1, padx=21, pady=1)
+
+        button_2 = tk.Button(self, width=24, height=2, font=("Helvetica", 9, "bold"), text="QUIT",
+        command=lambda: sys.exit())
+        button_2.grid(row=8, column=1, padx=21, pady=1)
+
+        form = tk.Frame(self, highlightbackground="grey",  highlightthickness=1, bd= 0, width=600)
+        form.grid(row=2, column=2, columnspan=4, rowspan=8, padx=21, pady=2, sticky='we')
         #form.configure(width=500, height=100)
         #form.grid_propagate(0)
+
+        cal_but= tk.Button(self, width=24, height=2, font=("Helvetica", 9, "bold"), text="CALCULATE",
+        command=lambda: self.calc(self.en_a.get(), self.en_b.get(), self.en_c.get()))
+        #cal_but.configure(width='20')
+        cal_but.grid(row=10, column=2, rowspan=1, padx=21, pady=2, sticky='w')
 
         label_1 = tk.Label(form, text="Enter values:", font=("Verdana", 10))
         label_1.grid(row=0, column=0, columnspan=2, sticky='ew')
@@ -139,25 +153,19 @@ class QFunction(tk.Frame):
         self.x2 = tk.Label(form, text=" ", font=("Verdana", 10))
         self.x2.grid(row=7, column=1, sticky='w')
 
-        cal_but= tk.Button(self, text="Calculate",
-        command=lambda: self.calc(self.en_a.get(), self.en_b.get(), self.en_c.get()))
-        cal_but.grid(row=5, column=0, sticky='w', ipady=5, padx=5, pady=5)
+        self.lab_inf = tk.Label(form, text=" ", font=("Verdana", 10))
+        self.lab_inf.grid(row=8, column=0, sticky='w')
 
-        back_but= tk.Button(self, text="Back to home",
-        command=lambda: controller.show_frame(1))
-        back_but.grid(row=1, column=2, sticky='n', ipady=5, pady=5)
-
-        self.lab_inf = tk.Label(self, text=" ", font=("Verdana", 10))
-        self.lab_inf.grid(row=6, column=0, sticky='w')
-
-        self.f = Figure(figsize=(5,5), dpi=100)
+        self.f = Figure(figsize=(4,4), dpi=110)
         self.pl = self.f.add_subplot(111)
         self.frame = tk.Frame(self)
-        self.frame.grid(row=7, column=0, columnspan=3)
+        self.frame.grid(row=11, column=2, columnspan=2, rowspan=15, padx=21, pady=2, sticky='we')
         self.canvas = FigureCanvasTkAgg(self.f, self.frame)
         self.toolbar = NavigationToolbar2Tk(self.canvas, self.frame)
+
         self.canvas.draw()
         self.canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+
 
 
     def funClear(self):
@@ -242,4 +250,5 @@ class QFunction(tk.Frame):
     #end of calc function
 
 a = MainApp()
+a.title("Lambda")
 a.mainloop()

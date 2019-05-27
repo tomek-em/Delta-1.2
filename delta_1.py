@@ -57,7 +57,7 @@ class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text="Lambda 1.2", fg="#000c33", font=("Helvetica", 14, "bold"))
+        label = tk.Label(self, text="Delta 1.2", fg="#000c33", font=("Helvetica", 14, "bold"))
         #label.pack(padx=10, pady=10)
         label.grid(row=1, column=1, columnspan=3, sticky='we', pady=34)
 
@@ -99,7 +99,7 @@ class QFunction(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-        label = tk.Label(self, fg="#000c33", text="Quadratic function - Lambda", font=("Helvetica", 14, "bold"))
+        label = tk.Label(self, fg="#000c33", text="Quadratic function - Delta", font=("Helvetica", 14, "bold"))
         label.grid(row=1, column=1, columnspan=5, sticky='we', pady=34)
 
         back_but= tk.Button(self, width=24, height=2, font=("Helvetica", 9, "bold"), text="BACK",
@@ -262,5 +262,5 @@ class QFunction(tk.Frame):
     #end of calc function
 
 a = MainApp()
-a.title("Lambda")
+a.title("Delta 1.2")
 a.mainloop()

@@ -38,8 +38,6 @@ class MainApp(tk.Tk):
 
         self.show_frame(1)
 
-        print(tkf.families())
-
 
 
     def show_frame(self, cont):
@@ -59,7 +57,7 @@ class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        label = tk.Label(self, text="Lambda 1.2 alpha", fg="#000c33", font=("Helvetica", 14, "bold"))
+        label = tk.Label(self, text="Lambda 1.2", fg="#000c33", font=("Helvetica", 14, "bold"))
         #label.pack(padx=10, pady=10)
         label.grid(row=1, column=1, columnspan=3, sticky='we', pady=34)
 
@@ -120,7 +118,7 @@ class QFunction(tk.Frame):
         cal_but= tk.Button(form, width=24, height=2, font=("Helvetica", 9, "bold"), text="CALCULATE",
         command=lambda: self.calc(self.en_a.get(), self.en_b.get(), self.en_c.get()))
         #cal_but.configure(width='20')
-        cal_but.grid(row=9, column=0, columnspan=8, padx=1, pady=2, sticky='w')
+        cal_but.grid(row=9, column=0, columnspan=8, padx=3, pady=5, sticky='w')
 
         label_1 = tk.Label(form, text='Enter values ("a" can not be equal 0): ', font=("Helvetica", 11))
         label_1.grid(row=0, column=0, columnspan=6, sticky='w', padx=2, pady=5)
@@ -170,7 +168,7 @@ class QFunction(tk.Frame):
         self.f = Figure(figsize=(4,3), dpi=110)
         self.pl = self.f.add_subplot(111)
         self.frame = tk.Frame(self, width=100)
-        self.frame.grid(row=10, column=2, rowspan=5, padx=21, pady=1, sticky='we')
+        self.frame.grid(row=10, column=2, rowspan=5, padx=21, pady=13, sticky='we')
         self.canvas = FigureCanvasTkAgg(self.f, self.frame)
         self.toolbar = MyNavToolbar(self.canvas, self.frame)
 

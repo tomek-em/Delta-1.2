@@ -14,6 +14,11 @@ import math
 import sys
 
 
+class MyNavToolbar(NavigationToolbar2Tk):
+    # only display the buttons we need
+    toolitems = [t for t in NavigationToolbar2Tk.toolitems if
+    t[0] in ('Home', 'Pan', 'Zoom', 'Save')]
+
 
 class MainApp(tk.Tk):
 
@@ -71,14 +76,14 @@ class StartPage(tk.Frame):
         button_1 = tk.Button(self, width=24, height=2, font=("Helvetica", 9, "bold"), text="QUAD. FUN.",
         command=lambda: controller.show_frame(2))
         #button_1.config(fg="#000c33",  highlightbackground="#001866")
-        button_1.grid(row=6, column=1, padx=21, pady=1)
+        button_1.grid(row=2, column=1, rowspan=2, padx=21, pady=1)
 
         button_2 = tk.Button(self, width=24, height=2, font=("Helvetica", 9, "bold"), text="QUIT",
         command=lambda: sys.exit())
         #self.btn_img = tk.PhotoImage(file="res/pic_1.png")
         #set width to grid :
         #button_2.config(width="164", height="42")
-        button_2.grid(row=7, column=1, padx=21, pady=1)
+        button_2.grid(row=4, column=1, rowspan=2, padx=21, pady=1)
 
         canvas = tk.Canvas(self, height=360, width=600, bg='black')
         #canvas.pack(padx=4, pady=10)
@@ -101,67 +106,73 @@ class QFunction(tk.Frame):
 
         back_but= tk.Button(self, width=24, height=2, font=("Helvetica", 9, "bold"), text="BACK",
         command=lambda: controller.show_frame(1))
-        back_but.grid(row=7, column=1, rowspan=1, padx=21, pady=1)
+        back_but.grid(row=2, column=1, rowspan=2, padx=21)
 
         button_2 = tk.Button(self, width=24, height=2, font=("Helvetica", 9, "bold"), text="QUIT",
         command=lambda: sys.exit())
-        button_2.grid(row=8, column=1, padx=21, pady=1)
+        button_2.grid(row=4, column=1, rowspan=2, padx=21, pady=1)
 
         form = tk.Frame(self, highlightbackground="grey",  highlightthickness=1, bd= 0, width=600)
-        form.grid(row=2, column=2, columnspan=4, rowspan=8, padx=21, pady=2, sticky='we')
+        form.grid(row=2, column=2, columnspan=4, rowspan=8, padx=13, pady=2, sticky='we')
         #form.configure(width=500, height=100)
         #form.grid_propagate(0)
 
-        cal_but= tk.Button(self, width=24, height=2, font=("Helvetica", 9, "bold"), text="CALCULATE",
+        cal_but= tk.Button(form, width=24, height=2, font=("Helvetica", 9, "bold"), text="CALCULATE",
         command=lambda: self.calc(self.en_a.get(), self.en_b.get(), self.en_c.get()))
         #cal_but.configure(width='20')
-        cal_but.grid(row=10, column=2, rowspan=1, padx=21, pady=2, sticky='w')
+        cal_but.grid(row=9, column=0, columnspan=8, padx=1, pady=2, sticky='w')
 
-        label_1 = tk.Label(form, text="Enter values:", font=("Verdana", 10))
-        label_1.grid(row=0, column=0, columnspan=2, sticky='ew')
+        label_1 = tk.Label(form, text='Enter values ("a" can not be equal 0): ', font=("Helvetica", 11))
+        label_1.grid(row=0, column=0, columnspan=6, sticky='w', padx=2, pady=5)
 
-        label_2 = tk.Label(form, text="('a' can't be equal 0)", font=("Verdana", 8))
-        label_2.grid(row=1, column=0, columnspan=2, sticky='ew')
+        lab_a = tk.Label(form, text="a =", font=("Helvetica", 10))
+        lab_a.grid(row=2, column=0)
+        self.en_a = tk.Entry(form, width=10)
+        self.en_a.grid(row=2, column=1, sticky='w')
+        lab_a_com = tk.Label(form, text=" ", font=("Helvetica", 10))
+        lab_a_com.grid(row=2, column=2)
 
-        lab_a = tk.Label(form, text="a = ", font=("Verdana", 10))
-        lab_a.grid(row=2, column=0, sticky='w')
-        self.en_a = tk.Entry(form)
-        self.en_a.grid(row=2, column=1)
+        lab_b = tk.Label(form, text=" b =", font=("Helvetica", 10))
+        lab_b.grid(row=2, column=3, sticky='w')
+        self.en_b = tk.Entry(form, width=10)
+        self.en_b.grid(row=2, column=4, sticky='w')
+        lab_a_com = tk.Label(form, text=" ", font=("Helvetica", 10))
+        lab_a_com.grid(row=2, column=5)
 
-        lab_b = tk.Label(form, text="b = ", font=("Verdana", 10))
-        lab_b.grid(row=3, column=0, sticky='w')
-        self.en_b = tk.Entry(form)
-        self.en_b.grid(row=3, column=1)
+        lab_c = tk.Label(form, text=" c =", font=("Helvetica", 10))
+        lab_c.grid(row=2, column=6, sticky='w')
+        self.en_c = tk.Entry(form, width=10)
+        self.en_c.grid(row=2, column=7, sticky='w')
+        lab_a_com = tk.Label(form, text=" ", font=("Helvetica", 10))
+        lab_a_com.grid(row=2, column=8)
 
-        lab_c = tk.Label(form, text="c = ", font=("Verdana", 10))
-        lab_c.grid(row=4, column=0, sticky='w')
-        self.en_c = tk.Entry(form)
-        self.en_c.grid(row=4, column=1)
+        lab_1 = tk.Label(form, text=" ", font=("Helvetica", 10))
+        lab_1.grid(row=3, column=0, columnspan=6, sticky='w')
 
-        lab_d = tk.Label(form, text="del = ", font=("Verdana", 10))
-        lab_d.grid(row=5, column=0, sticky='w')
-        self.lab_del = tk.Label(form, text=" ", font=("Verdana", 10))
-        self.lab_del.grid(row=5, column=1, sticky='w')
+        lab_d = tk.Label(form, text="del =", font=("Helvetica", 10))
+        lab_d.grid(row=4, column=0, sticky='w')
+        self.lab_del = tk.Label(form, text=" ", font=("Helvetica", 10))
+        self.lab_del.grid(row=4, column=1, columnspan=2, sticky='w', pady=5)
 
-        lab_x1 = tk.Label(form, text="x1 = ", font=("Verdana", 10))
-        lab_x1.grid(row=6, column=0, sticky='w')
-        self.x1 = tk.Label(form, text=" ", font=("Verdana", 10))
-        self.x1.grid(row=6, column=1, sticky='w')
+        lab_x1 = tk.Label(form, text="x1 =", font=("Helvetica", 10))
+        lab_x1.grid(row=5, column=0, sticky='w')
+        self.x1 = tk.Label(form, text=" ", font=("Helvetica", 10))
+        self.x1.grid(row=5, column=1, sticky='w')
 
-        lab_x2 = tk.Label(form, text="x2 = ", font=("Verdana", 10))
-        lab_x2.grid(row=7, column=0, sticky='w')
-        self.x2 = tk.Label(form, text=" ", font=("Verdana", 10))
-        self.x2.grid(row=7, column=1, sticky='w')
+        lab_x2 = tk.Label(form, text="x2 =", font=("Helvetica", 10))
+        lab_x2.grid(row=6, column=0, sticky='w')
+        self.x2 = tk.Label(form, text=" ", font=("Helvetica", 10))
+        self.x2.grid(row=6, column=1, sticky='w')
 
-        self.lab_inf = tk.Label(form, text=" ", font=("Verdana", 10))
-        self.lab_inf.grid(row=8, column=0, sticky='w')
+        self.lab_inf = tk.Label(form, text=" ", font=("Helvetica", 10), fg='red')
+        self.lab_inf.grid(row=7, column=0, columnspan=9, sticky='w')
 
-        self.f = Figure(figsize=(4,4), dpi=110)
+        self.f = Figure(figsize=(4,3), dpi=110)
         self.pl = self.f.add_subplot(111)
-        self.frame = tk.Frame(self)
-        self.frame.grid(row=11, column=2, columnspan=2, rowspan=15, padx=21, pady=2, sticky='we')
+        self.frame = tk.Frame(self, width=100)
+        self.frame.grid(row=10, column=2, rowspan=5, padx=21, pady=1, sticky='we')
         self.canvas = FigureCanvasTkAgg(self.f, self.frame)
-        self.toolbar = NavigationToolbar2Tk(self.canvas, self.frame)
+        self.toolbar = MyNavToolbar(self.canvas, self.frame)
 
         self.canvas.draw()
         self.canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=True)
@@ -195,7 +206,7 @@ class QFunction(tk.Frame):
 
             delta = (b**2) - 4 * a * c
             if (delta > 0):
-                d = str(delta)
+                d = str("%.2f" % (delta))
                 del_sqr = math.sqrt(delta)
                 x1 = (-b - (del_sqr)) / (2 * a)
                 x2 = (-b + (del_sqr)) / (2 * a)
@@ -227,21 +238,24 @@ class QFunction(tk.Frame):
                 self.toolbar.update()
                 self.canvas._tkcanvas.pack()
 
+
             else:
                 d = 0
                 x1 = 0
                 x2 = 0
+
                 self.lab_inf.config(text =
                 "Delta has to be greater than 0. Try other numbers")
+
         except:
             if (var_a == '0'):
                 self.lab_inf.config(text = "a can't be 0")
             else:
                 self.lab_inf.config(text = "Insert only number. ('a' can't be equal 0)")
-
             d = 0
             x1 = 0
             x2 = 0
+
 
         self.lab_del.config(text = d)
         self.x1.config(text = "%.2f" % (x1))
